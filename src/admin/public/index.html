@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>echocut studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand-area">
+                <div class="logo-icon">ZE</div>
+                <div class="brand-text">Echo Studio</div>
+            </div>
+            <nav class="nav-menu" id="sidebarNav">
+                <button type="button" class="nav-item active" data-view="overview">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" rx="2"></rect>
+                        <rect x="14" y="3" width="7" height="7" rx="2"></rect>
+                        <rect x="14" y="14" width="7" height="7" rx="2"></rect>
+                        <rect x="3" y="14" width="7" height="7" rx="2"></rect>
+                    </svg>
+                    <span>Studio</span>
+                </button>
+                <button type="button" class="nav-item" data-view="content">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    <span>Content</span>
+                </button>
+                <button type="button" class="nav-item" data-view="upload">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 16 12 12 8 16"></polyline>
+                        <line x1="12" y1="12" x2="12" y2="21"></line>
+                        <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                    </svg>
+                    <span>Upload</span>
+                </button>
+                <button type="button" class="nav-item" data-view="prompts">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    <span>Config</span>
+                </button>
+                <button type="button" class="nav-item" data-view="assets">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Files</span>
+                </button>
+            </nav>
+            <div style="flex:1"></div>
+            <div style="padding:8px 12px; font-size:11px; color:var(--text-tertiary);">
+                <div id="sidebarStatus" style="display:flex; align-items:center; gap:6px;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+                    Online
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Toolbar -->
+            <header class="toolbar">
+                <div class="toolbar-title-wrapper">
+                    <h1 id="pageTitle">Studio</h1>
+                </div>
+                <div class="toolbar-actions">
+                    <button id="refreshBtn" class="tool-btn" title="Refresh">
+                        <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 4v6h-6"></path>
+                            <path d="M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Views -->
+            <div id="view-overview" class="view-panel active">
+                <div class="dashboard-grid">
+                    <section class="stats-card" id="stats"></section>
+                    <div class="content-wall">
+                        <div class="wall-column">
+                            <div class="section-header">
+                                <h3>Recent Content</h3>
+                            </div>
+                            <div id="resultTextCards" class="card-stack"></div>
+                        </div>
+                        <div class="wall-column">
+                            <div class="section-header">
+                                <h3>Recent Videos</h3>
+                            </div>
+                            <div id="resultVideoCards" class="card-stack"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-content" class="view-panel hidden">
+                <div class="split-view">
+                    <div class="master-list-pane">
+                        <div class="list-header">
+                            <div class="search-bar">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input id="searchInput" type="text" placeholder="Search..." />
+                            </div>
+                            <div class="segmented-control-container">
+                                <div class="segmented-control" id="statusTabs">
+                                    <button class="segment-btn active" data-status="all">All</button>
+                                    <button class="segment-btn" data-status="pending">Pending</button>
+                                    <button class="segment-btn" data-status="reviewing">Done</button>
+                                    <button class="segment-btn" data-status="published">Published</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="contentList" class="scroll-list"></div>
+                    </div>
+
+                    <div class="detail-pane">
+                        <div id="editorEmpty" class="empty-state">
+                            <div class="empty-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            </div>
+                            <p>Select content to view details</p>
+                        </div>
+                        <form id="editorForm" class="detail-content hidden">
+                            <div class="detail-header sticky-header">
+                                <div class="detail-title-group">
+                                    <span class="id-badge" id="displayId">#ID</span>
+                                    <span class="status-badge" id="displayStatus">Status</span>
+                                </div>
+                                <div class="detail-actions">
+                                    <button id="regenArticleBtn" type="button" class="action-btn secondary" title="Regenerate article">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                        Article
+                                    </button>
+                                    <button id="regenMomentsBtn" type="button" class="action-btn secondary" title="Regenerate moments">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                                        Moments
+                                    </button>
+                                    <button id="regenVideoBtn" type="button" class="action-btn secondary" title="Regenerate video">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                                        Video
+                                    </button>
+                                    <button id="regenAllBtn" type="button" class="action-btn secondary" title="Regenerate all">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path><path d="M23 20v-6h-6"></path><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path></svg>
+                                        All
+                                    </button>
+                                    <button type="submit" class="action-btn primary">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="detail-scroll-area">
+                                <section class="detail-section">
+                                    <h4 class="section-title">Metadata</h4>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <label>Created</label>
+                                            <span id="displayTime" class="read-only-text">--</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <label>Audio Source</label>
+                                            <div class="input-wrapper">
+                                                <input id="editAudioPath" readonly class="text-input-flat read-only" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="videoMetadataRow" style="display:none; margin-top:8px;">
+                                        <div class="info-item" style="margin-bottom:4px;">
+                                            <label>Headline</label>
+                                            <span id="displayHeadline" class="read-only-text" style="font-weight:600;"></span>
+                                        </div>
+                                        <div class="info-item">
+                                            <label>Subline</label>
+                                            <span id="displaySubline" class="read-only-text"></span>
+                                        </div>
+                                    </div>
+                                    <input id="editId" type="hidden" />
+                                    <input id="editStatusLabel" type="hidden" />
+                                    <input id="editTranscribePath" type="hidden" />
+                                    <input id="editVideoPath" type="hidden" />
+                                </section>
+
+                                <!-- Video Preview -->
+                                <section class="detail-section" id="videoPreviewSection" style="display:none">
+                                    <h4 class="section-title">Video Preview</h4>
+                                    <div class="video-inline-preview">
+                                        <video id="videoPreviewPlayer" controls preload="metadata"></video>
+                                    </div>
+                                </section>
+
+                                <section class="detail-section">
+                                    <h4 class="section-title">Content Editor</h4>
+                                    <div class="form-group">
+                                        <label>Raw Transcript</label>
+                                        <textarea id="editRawText" rows="4" class="text-area-modern"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Article Draft</label>
+                                        <textarea id="editDraft" rows="8" class="text-area-modern"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Moments Copy</label>
+                                        <textarea id="editHook" rows="3" class="text-area-modern"></textarea>
+                                    </div>
+                                </section>
+                                <section class="detail-section">
+                                    <h4 class="section-title">Result Preview</h4>
+                                    <div id="contentResultPreview"></div>
+                                </section>
+
+                                <section class="detail-section collapsed">
+                                    <h4 class="section-title">Process Log</h4>
+                                    <textarea id="editTrace" rows="4" readonly class="code-block"></textarea>
+                                </section>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-upload" class="view-panel hidden">
+                <div class="panel-container" style="padding: 24px; max-width: 680px;">
+                    <div class="panel-header-simple" style="margin-bottom: 24px;">
+                        <h2 style="font-size: 17px; font-weight: 700; color: var(--text-primary);">Upload &amp; Process</h2>
+                    </div>
+
+                    <!-- Drop Zone -->
+                    <div id="uploadDropZone" class="upload-drop-zone">
+                        <input type="file" id="uploadFileInput" accept=".mp4,.mov,.avi,.mkv,.webm,.mp3,.wav,.m4a,.ogg,.aac,.flac" style="display:none" />
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-tertiary);margin-bottom:10px;"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path></svg>
+                        <div id="uploadDropLabel" style="font-size:14px;color:var(--text-secondary);text-align:center;">
+                            拖拽视频/音频到这里，或<span style="color:var(--blue);cursor:pointer;" id="uploadChooseBtn">点击选择文件</span>
+                            <div style="font-size:12px;color:var(--text-tertiary);margin-top:6px;">支持：MP4 MOV AVI MKV MP3 WAV M4A OGG</div>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 12px;">
+                        <div class="form-group" style="margin:0;">
+                            <label style="font-size:13px;color:var(--text-secondary);display:block;margin-bottom:4px;">标题（可选）</label>
+                            <input id="uploadHeadline" type="text" class="text-input-flat" placeholder="留空由 AI 自动生成" style="width:100%;box-sizing:border-box;" />
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label style="font-size:13px;color:var(--text-secondary);display:block;margin-bottom:4px;">副标题（可选）</label>
+                            <input id="uploadSubline" type="text" class="text-input-flat" placeholder="留空由 AI 自动生成" style="width:100%;box-sizing:border-box;" />
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label style="font-size:13px;color:var(--text-secondary);display:block;margin-bottom:4px;">文章风格</label>
+                            <div class="select-wrapper" style="max-width:200px;">
+                                <select id="uploadMode" class="modern-select">
+                                    <option value="default">默认风格</option>
+                                    <option value="casual">轻松随性</option>
+                                    <option value="formal">专业正式</option>
+                                    <option value="story">故事叙述</option>
+                                </select>
+                                <svg class="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="uploadSubmitBtn" class="action-btn primary" style="min-width:120px;">开始处理</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress -->
+                    <div id="uploadProgress" style="display:none; margin-top:24px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <span id="uploadProgressLabel" style="font-size:13px;color:var(--text-secondary);">处理中...</span>
+                            <span id="uploadProgressPct" style="font-size:13px;color:var(--text-tertiary);font-family:var(--font-mono);">0%</span>
+                        </div>
+                        <div style="height:6px;background:var(--surface-3);border-radius:3px;overflow:hidden;">
+                            <div id="uploadProgressBar" style="height:100%;background:var(--blue);border-radius:3px;width:0%;transition:width 0.4s ease;"></div>
+                        </div>
+                        <div id="uploadTaskMeta" style="margin-top:8px;font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-prompts" class="view-panel hidden">
+                <div class="panel-container" style="padding: 24px;">
+                    <div class="panel-header-simple" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+                        <h2 style="font-size: 17px; font-weight: 700; color: var(--text-primary);">Prompt & Video Config</h2>
+                        <button class="btn-secondary" onclick="exportConfigs()" style="font-size:13px; padding:6px 14px;">⬇ 导出配置</button>
+                    </div>
+                    <div class="layout-preview-card">
+                        <div class="layout-preview-toolbar">
+                            <div>
+                                <div class="layout-preview-title">Layout Preview</div>
+                                <div class="layout-preview-desc">Real-time preview of title, subtitle, and caption layout</div>
+                            </div>
+                            <div class="select-wrapper">
+                                <select id="layoutPreviewType" class="modern-select">
+                                    <option value="landscape">Landscape</option>
+                                    <option value="video_note">Video Note</option>
+                                    <option value="vertical">Vertical</option>
+                                    <option value="square">Square</option>
+                                </select>
+                                <svg class="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                        </div>
+                        <div id="layoutTemplatePreview"></div>
+                    </div>
+                    <form id="configForm" class="config-grid-modern"></form>
+                </div>
+            </div>
+
+            <div id="view-assets" class="view-panel hidden">
+                <div class="split-view">
+                    <div class="master-list-pane">
+                         <div class="list-header">
+                            <div class="select-wrapper">
+                                <select id="fileGroupSelect" class="modern-select">
+                                    <option value="audio_inputs">Audio Inputs</option>
+                                    <option value="video_inputs">Video Inputs</option>
+                                    <option value="incoming_files">Incoming Files</option>
+                                    <option value="generated_videos">Generated Videos</option>
+                                    <option value="transcribe_json">Transcribe JSON</option>
+                                    <option value="debug_audio">Debug Audio</option>
+                                    <option value="debug_video">Debug Video</option>
+                                    <option value="debug_text">Debug Text</option>
+                                    <option value="logs">Logs</option>
+                                </select>
+                                <svg class="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                             <div class="actions-row">
+                                <button id="refreshFilesBtn" type="button" class="tool-btn-small">Refresh</button>
+                             </div>
+                        </div>
+                        <div id="fileList" class="scroll-list file-list-modern"></div>
+                    </div>
+                    <div class="detail-pane">
+                         <div class="detail-scroll-area padded">
+                            <div class="form-group">
+                                <label>File Preview</label>
+                                <div id="filePreviewContainer" class="code-block" style="min-height: 200px; white-space: pre-wrap;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast -->
+            <div id="toast" class="toast-capsule"></div>
+        </main>
+    </div>
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{
+  "name": "echocut",
+  "version": "0.1.0",
+  "description": "Turn raw footage into brand-ready, platform-optimized video with one command. Local-first: FFmpeg + WhisperX/MLX + Ollama.",
+  "main": "index.js",
+  "bin": {
+    "echocut": "./bin/echocut.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BillLucky/echocut.git"
+  },
+  "homepage": "https://github.com/BillLucky/echocut#readme",
+  "bugs": {
+    "url": "https://github.com/BillLucky/echocut/issues"
+  },
+  "keywords": [
+    "video",
+    "ffmpeg",
+    "subtitles",
+    "captions",
+    "asr",
+    "whisper",
+    "transcription",
+    "cli",
+    "ollama",
+    "shorts",
+    "highlights",
+    "local-first"
+  ],
+  "scripts": {
+    "start": "node index.js",
+    "start:lite": "TRANSCRIBE_ENGINE=whisperx WHISPERX_LOW_MEMORY=1 WHISPERX_MODEL=small WHISPERX_BATCH_SIZE=1 WHISPERX_DISABLE_ALIGN=1 TRANSCRIBE_TIMEOUT_MS=1200000 VIDEO_CONTENT_MODE=fast TASK_QUEUE_CONCURRENCY=1 REMOTION_SCALE=0.75 node index.js",
+    "start:cloud:2g": "TRANSCRIBE_ENGINE=whisperx WHISPERX_LOW_MEMORY=1 WHISPERX_MODEL=small WHISPERX_BATCH_SIZE=1 WHISPERX_DISABLE_ALIGN=1 TRANSCRIBE_TIMEOUT_MS=1200000 VIDEO_CONTENT_MODE=fast TASK_QUEUE_CONCURRENCY=1 REMOTION_SCALE=0.75 REMOTION_CONCURRENCY=1 node index.js",
+    "start:admin": "node scripts/start-admin.js",
+    "check": "node --check index.js && node --check scripts/run-video-cases.js && node --check scripts/clip-video.js && node --check scripts/test-local-debug-cases.js && node --check scripts/benchmark-asr.js && node --check scripts/start-admin.js && node --check src/app.js && node --check src/config.js && node --check src/admin/server.js && node --check src/admin/public/app.js && node --check src/db/index.js && node --check src/db/migrations.js && node --check src/db/contentsRepo.js && node --check src/db/configRepo.js && node --check src/services/processor.js && node --check src/services/promptLibrary.js && node --check src/services/transcriber.js && node --check src/services/notifier.js && node --check src/services/clipper.js && node --check src/video/asrAdapters.js && node --check src/video/captionUtils.js && node --check src/video/captionConfig.js && node --check src/video/fillerCutter.js && node --check src/video/coverGenerator.js && node --check src/video/postProcess.js && node --check src/video/remotionRunner.js && node --check src/bot/msgUtils.js && node --check src/bot/botSend.js && node --check src/bot/taskManager.js && node --check src/lib/cliUtils.js && node --check bin/echocut.js && node --check src/cli/commands/doctor.js && node --check src/cli/commands/burn.js && node --check src/cli/commands/studio.js && node --check src/cli/commands/highlights.js && node --check src/cli/commands/article.js && node --check src/cli/commands/batch.js && node --check src/services/transcribeLong.js && node --check src/lib/transcriptCache.js && node --check src/lib/stripEmoji.js && node --check src/lib/asrNameSanitizer.js",
+    "setup:node": "npm install",
+    "setup:python": "python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt",
+    "setup": "npm run setup:node && npm run setup:python",
+    "test:text": "node scripts/run-text-cases.js",
+    "test:audio": "node scripts/run-audio-cases.js",
+    "test:audio:llm": "node scripts/run-audio-cases.js --with-llm",
+    "test:video": "node scripts/run-video-cases.js --limit=2",
+    "debug:text:inline": "node scripts/run-text-cases.js --text=\"这是本地联调文本样例\" --title=inline",
+    "debug:audio:one": "node scripts/run-audio-cases.js --limit=1 --with-llm",
+    "debug:video:audio": "node scripts/run-video-cases.js --audio-dir=audio_inputs --limit=1 --engine=mlx",
+    "debug:video:file": "node scripts/run-video-cases.js --video-dir=video_inputs --limit=1 --engine=mlx --fallback-text=\"本地视频字幕调试\"",
+    "test:local-debug": "node scripts/test-local-debug-cases.js",
+    "test:benchmark": "node scripts/benchmark-asr.js",
+    "test:unit": "node --test tests/*.test.js",
+    "test": "npm run check && npm run test:unit",
+    "fetch-fonts": "bash scripts/fetch-fonts.sh"
+  },
+  "author": "Bill Li <bill.libiao@gmail.com>",
+  "license": "Apache-2.0",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1030.0",
+    "@aws-sdk/s3-request-presigner": "^3.1030.0",
+    "axios": "^1.13.6",
+    "better-sqlite3": "^12.2.0",
+    "commander": "^14.0.3",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.2",
+    "multer": "^2.1.1",
+    "node-telegram-bot-api": "^0.67.0"
+  },
+  "optionalDependencies": {
+    "@remotion/bundler": "^4.0.435",
+    "@remotion/cli": "^4.0.435",
+    "@remotion/renderer": "^4.0.435",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "^4.0.435"
+  }
+}

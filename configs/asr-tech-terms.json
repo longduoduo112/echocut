@@ -1,0 +1,15 @@
+{
+  "_comment": "全局 ASR 技术术语校正词库。中文口播里的英文技术名词常被 qwen3-ASR 听成同音字/近音词,这里做精确字符串替换;所有品牌的 burn/highlights 流水线在 LLM 字幕校正之后自动过这一层。维护方式:每次发现新错别字,把真实观察到的错误写法加进对应词条的 wrong 数组(或新增词条)。原则:只放【已真实观察到】或【纯大小写/空格规范化】的高置信条目,绝不放臆测的同音词;歧义词(裸 'Cloud' 可能指云、'git' 等)不放全局,留给品牌级 asrNameCorrections 或未来 LLM 上下文校正。精确替换、大小写敏感、不模糊匹配、失败不阻塞主流程。",
+  "_version": 1,
+  "_howToExtend": "观察到字幕里某技术名词被听错 → 找到该词条 → 把错误写法加进 wrong 数组(确保不会误伤合法文本,例如不要加会吞掉助词的片段如 'GitHub的')。提交时在 commit 里说明新增来源(哪条视频观察到)。",
+  "corrections": [
+    {
+      "right": "Claude Code",
+      "wrong": ["Cloud Code", "cloud code", "Cloud code", "CloudCode"],
+      "_seenIn": "export-1780142341815(Claude Code 教程):19 处 'Cloud Code'"
+    },
+    { "right": "GitHub", "wrong": ["Github", "github", "GITHUB"] },
+    { "right": "VS Code", "wrong": ["VSCode", "VScode", "vscode", "vs code", "VS code"] },
+    { "right": "OpenAI", "wrong": ["Open AI", "open ai", "OpenAi", "Openai"] }
+  ]
+}

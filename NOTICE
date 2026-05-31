@@ -1,0 +1,20 @@
+ECHOCUT
+Copyright 2026 ECHOCUT contributors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+------------------------------------------------------------------------------
+Third-party components and their separate licenses
+------------------------------------------------------------------------------
+
+Noto Sans SC (default CJK font)
+  SIL Open Font License 1.1 — https://openfontlicense.org
+  Fetched at setup time via `npm run fetch-fonts` into assets/fonts/ (OFL.txt included).
+
+Remotion (OPTIONAL — only used by the experimental audio→video render path)
+  Remotion has its OWN license, NOT Apache-2.0. It is free for individuals and
+  organizations with <= 3 employees; larger for-profit companies need a Remotion
+  Company License. See https://www.remotion.dev/docs/license
+  ECHOCUT's default pipeline uses FFmpeg only and does NOT require Remotion.
+
+FFmpeg, Ollama, WhisperX, MLX, and other dependencies retain their respective licenses.

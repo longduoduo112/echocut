@@ -1,0 +1,98 @@
+node_modules/
+.env
+.venv/
+*.pyc
+__pycache__/
+.nltk_data/
+
+# 用户本地产物(品牌营销工作流 v0.8)
+weekly-retros/
+distribute_pack-*/
+crosslang-*/
+
+# 数据库
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# 运行产物
+debug_outputs/
+tmp/
+logs/
+
+# highlights v2 本地缓存(transcript / candidates / clip,可占 2-3 GB)
+.echo-cache/
+
+# 用户自建/运行时生成的品牌实例(各自本地维护,不入库)
+configs/brands/_user_*.json
+
+# 本地素材与媒体文件
+incoming_files/
+audio_inputs/
+video_inputs/
+testvideos/
+image_inputs/
+testcases/
+
+# 媒体文件（全局）
+*.mp4
+*.mov
+*.m4v
+*.webm
+*.mp3
+*.mkv
+*.avi
+*.flv
+*.mp3
+*.m4a
+*.ogg
+*.wav
+*.aac
+*.flac
+*.ts
+
+# 图片素材（不含文档引用的小图）
+*.bmp
+*.tiff
+
+# 生成产物
+/public/generated_videos/
+/public/video_audio/
+
+# 其他
+:memory:
+.DS_Store
+.gstack/
+
+# ASR 本地大模型权重(MiMo 12GB 等)与基准音频产物,不入库
+models/
+.echo-bench/
+
+# Panel/Vlog 视频产物目录(成片 + 中间产物 + 工作日志);WORKLOG 经验单独抽到 docs/
+.echo-output/
+
+# v0.13 --auto-pad 重构图中间产物(每个视频生成 _fitted.mp4 备份)
+.echo-fitted/
+
+# macOS / 编辑器垃圾
+**/.DS_Store
+.idea/
+.vscode/
+
+# 调试基线截图(开发期 QA 产物,本地保留不入库)
+docs/baselines/
+
+# 个人数据集(LLM 风格参考,本地保留不入库;开源版用泛化示例)
+data/personal/
+
+# 无用字体格式只保留 ttf/otf(ffmpeg 只认这俩),不要 web 格式
+src/resources/fonts/**/*.eot
+src/resources/fonts/**/*.woff
+src/resources/fonts/**/*.woff2
+
+# 下载的字体(OFL,跑 npm run fetch-fonts 获取,不入库)
+assets/fonts/*.otf
+assets/fonts/*.ttf
+assets/fonts/OFL.txt
+# BGM 用户自备/生成
+assets/bgm/*.mp3

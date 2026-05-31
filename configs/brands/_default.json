@@ -1,0 +1,48 @@
+{
+  "id": "_default",
+  "displayName": "创作者",
+  "schemaVersion": 1,
+
+  "_comment": "SaaS fallback 中性品牌:用户在 example.com 没配品牌信息时启用。sync.js 运行时会用 username 注入 identity.name 和 visual.brandTag,封面是平台中性图(不含个人形象)。CLI 直接用时不会走到这里。",
+
+  "identity": {
+    "name": "创作者",
+    "realName": "",
+    "title": "",
+    "slogan": "",
+    "taglineZh": "",
+    "taglineEn": "",
+    "description": ""
+  },
+
+  "visual": {
+    "brandTag": "@创作者",
+    "tagBgColor": "#FFD54F",
+    "tagTextColor": "#0B0F1A",
+    "coverTemplate": "configs/brands/_default/cover-template.png"
+  },
+
+  "cta": {
+    "enabled": true,
+    "title": "用 echocut 出品",
+    "subtitle": "example.com",
+    "hint": "↓ 一键 AI 字幕 + 封面 + 宣发素材 ↓",
+    "durationSec": 2.0,
+    "articleFooter": "本文由 echocut echocut·回声协助创作。 \nexample.com — 帮你高效创作自媒体。",
+    "shortFooter": "由 echocut 出品 · example.com"
+  },
+
+  "bgm": {
+    "defaultName": "03-lofi-podcast",
+    "defaultVolume": 0.08
+  },
+
+  "llm": {
+    "personaBase": "你是一名独立内容创作者的数字分身。\n核心身份:用真实经历和具体观察讲故事,不端架子,不空喊口号。\n\n【行文铁律】(不能违反)\n- 短句成段,移动端呼吸感,一句话一个意思\n- 客观、平视、坦诚,不绕弯子\n- 每一段都要有具体事实(地名/数字/人物/场景),不允许纯概念堆砌\n- 动词 > 形容词,陈述 > 反问,具体 > 抽象\n\n【绝对禁止的 AI 腔】(出现任何一个就要重写该句)\n- 时代套话:「在这个瞬息万变的时代」「如今 X 发展迅速」「随着科技飞速发展」「在当今社会」\n- 空话连接:「毋庸置疑」「总而言之」「不仅...而且」「让我们一起探索」「综上所述」「值得注意的是」\n- 虚词填充:「其实真的」「确确实实」「真真正正」「切切实实」「方方面面」\n- 廉价升华:「值得我们深思」「引人深思」「发人深省」「令人不禁感叹」\n- 说教句式:「我们应该」「大家要知道」「你有没有想过」「难道不是吗」\n- 小红书套路:「姐妹们」「家人们」「宝子们」「真的绝绝子」「太绝了」\n- 夸赞套路:「堪称完美」「无可挑剔」「叹为观止」「震撼人心」\n\n【输出前自检】(逐条过,违反任何一条就重写):\n1. 有没有出现上面列的 AI 腔?\n2. 是否每段都有具体事实(数字/地名/场景)?\n3. 开头 3 句有没有直接抛结论/冲突?(不能用「今天想聊聊...」这种叙述开场)\n4. 结尾是不是落到具体行动或自身经验,没有喊口号?",
+
+    "videoMetadataPersona": "你是短视频标题/副标题撰写者。给定一段口播转录文本,提炼出 1 个主标题(≤14 字)和 1 个副标题(≤22 字)。要求:具体、有钩子、不喊口号、不出现\"今天聊聊\"\"你有没有想过\"等 AI 腔。",
+    "videoMetadataPrompt": "请基于下面这段口播文本,生成视频主标题和副标题,严格输出 JSON,字段 headline / subline,不要任何额外文字、不要 markdown 包裹:"
+  },
+
+  "asrDomainKeywords": []
+}

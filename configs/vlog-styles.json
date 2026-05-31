@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "description": "Vlog 风格系统 · 每种 style 定义 prompt 模板、BGM 偏好、字幕风格、素材选择倾向",
+  "brand_tone_default": "example",
+  "user_tone_filters": {
+    "example": {
+      "positive": [
+        "奋斗", "成长", "突破", "坚持", "专注", "build in public", "正能量", "积极",
+        "创业", "数字游民", "反差身份", "解决问题", "决定", "走", "跑", "想清楚"
+      ],
+      "weaken": ["孤独", "痛苦", "悲伤", "脆弱", "虚无", "抑郁"],
+      "note": "用户反馈 2026-04-23:核心调性是创业/成长/正能量,弱化孤独悲伤"
+    }
+  },
+  "styles": [
+    {
+      "id": "startup-journey",
+      "name": "创业奋斗 · Build in Public",
+      "emoji": "🚀",
+      "description": "创业者日常:写代码/出差/演讲/思考,真实的数字和里程碑",
+      "target_platforms": ["Twitter", "视频号", "公众号"],
+      "material_preference": {
+        "prefer_scenes": ["办公室", "会场", "演讲", "写字", "街道", "机场", "咖啡厅"],
+        "avoid_scenes": ["风景", "旅游"]
+      },
+      "subtitle_style": {
+        "template": "Day X · {event}",
+        "tone": "日记体 · 具体 · 数字感",
+        "example": ["Day 42 · 今天 PainHunt +37 用户", "上台前深呼吸 · 3 · 2 · 1", "5 分钟讲完我是谁"],
+        "length_hint": "短 · 每段 6-15 字 · 允许双行"
+      },
+      "pacing": {
+        "seg_duration": [3, 4],
+        "total_duration": [45, 75],
+        "transition": "硬切"
+      },
+      "bgm_preference": [
+        "creator-01-lofi-buildinpublic",
+        "creator-02-electronic-focus",
+        "03-lofi-podcast",
+        "06-ambient"
+      ],
+      "llm_prompt_additions": "语气:第一人称现在时,短促,带数字和具体里程碑。避免形容词堆砌。每段要像 Twitter 单条,自成一句。",
+      "example_plans": ["11-Build-in-Public-Day1"]
+    },
+    {
+      "id": "growth-reflection",
+      "name": "成长思考 · 积极独白",
+      "emoji": "🌱",
+      "description": "路上的顿悟 / 观察 / 个人成长,积极正向,不悲伤",
+      "target_platforms": ["小红书", "视频号", "公众号"],
+      "material_preference": {
+        "prefer_scenes": ["空镜", "自然", "街头", "桌面", "独处"],
+        "avoid_scenes": ["人潮", "嘈杂"]
+      },
+      "subtitle_style": {
+        "template": "{observation} / {insight}",
+        "tone": "观察 + 金句 · 温和有力",
+        "example": ["城市的第一课 · 每个人都有自己的节奏", "一个人 · 不是孤单 · 是专注", "成长不是变强 · 是看得更清楚"],
+        "length_hint": "中 · 每段 8-20 字 · 允许双行金句"
+      },
+      "pacing": {
+        "seg_duration": [4, 5],
+        "total_duration": [40, 70],
+        "transition": "硬切 + 短停顿"
+      },
+      "bgm_preference": [
+        "solo-16-piano-einaudi",
+        "solo-06-amazing-grace-guitar",
+        "solo-04-amazing-grace-piano",
+        "creator-08-piano-sunrise"
+      ],
+      "llm_prompt_additions": "避免悲伤/脆弱/痛苦/孤独。用'专注/一个人/坚持/决定'等词替代。情绪基调:沉静但向上",
+      "example_plans": ["13-一个人的坚持", "15-城市给我上的课"]
+    },
+    {
+      "id": "business-travel",
+      "name": "商务出差 · Builder's Note",
+      "emoji": "✈️",
+      "description": "出差的真实记录,机场/会场/街道/演讲,有节奏感",
+      "target_platforms": ["视频号", "Twitter", "朋友圈"],
+      "material_preference": {
+        "prefer_scenes": ["机场", "会场", "酒店", "演讲", "街道", "海港"],
+        "avoid_scenes": ["自然", "田园"]
+      },
+      "subtitle_style": {
+        "template": "① {moment} / ② ...",
+        "tone": "速记式 · 数字卡片 · 双语可选",
+        "example": ["HK 48h · ① 抵港 ② 进场 ③ 演讲", "Day 1 at HK Summit", "7:30 到港 · 15:00 上台"],
+        "length_hint": "短 · 每段 ≤ 15 字"
+      },
+      "pacing": {
+        "seg_duration": [3, 4],
+        "total_duration": [30, 60],
+        "transition": "快切"
+      },
+      "bgm_preference": [
+        "03-lofi-podcast",
+        "creator-11-jazz-bossa-light",
+        "creator-13-guzheng-modern",
+        "06-ambient"
+      ],
+      "llm_prompt_additions": "如果有具体时间/地点/数字,优先保留。可以用 emoji 编号 ① ② ③ 打节奏。",
+      "example_plans": ["14-48小时7个瞬间"]
+    },
+    {
+      "id": "on-the-road",
+      "name": "路上奋斗 · 动词节奏",
+      "emoji": "🏃",
+      "description": "纯走路/等车/转场,体现行动力和坚持",
+      "target_platforms": ["抖音", "视频号"],
+      "material_preference": {
+        "prefer_scenes": ["走路", "街道", "过马路", "等红灯", "地铁", "公交"],
+        "avoid_scenes": ["静态", "空镜"]
+      },
+      "subtitle_style": {
+        "template": "{single_verb}",
+        "tone": "动词化 · 单字/短词 · 有力",
+        "example": ["走", "跑", "想", "决定", "8 公里之后\\n我到了我想到的地方"],
+        "length_hint": "极短 · 1-3 字或最后一段反转金句"
+      },
+      "pacing": {
+        "seg_duration": [2, 3],
+        "total_duration": [25, 40],
+        "transition": "极快切"
+      },
+      "bgm_preference": [
+        "solo-19-fingerstyle-guitar",
+        "creator-15-fingerstyle-pulse",
+        "creator-02-electronic-focus"
+      ],
+      "llm_prompt_additions": "只用动词和极短名词。最后一段允许一个完整的反转金句,作为 punchline。",
+      "example_plans": ["12-走着走着就到了"]
+    },
+    {
+      "id": "keynote-moment",
+      "name": "演讲 · 高光时刻",
+      "emoji": "🎤",
+      "description": "聚焦舞台/pitch/观众反应,有仪式感",
+      "target_platforms": ["Twitter", "LinkedIn", "视频号"],
+      "material_preference": {
+        "prefer_scenes": ["舞台", "会场", "PPT", "观众", "手势"],
+        "avoid_scenes": ["日常", "风景"]
+      },
+      "subtitle_style": {
+        "template": "{statement}",
+        "tone": "宣言式 · 标题感",
+        "example": ["On stage · 5 minutes", "把 PainHunt 讲给 500 人", "This is my pitch"],
+        "length_hint": "中 · 标题体,可英文"
+      },
+      "pacing": {
+        "seg_duration": [3, 5],
+        "total_duration": [30, 60],
+        "transition": "聚焦慢切"
+      },
+      "bgm_preference": [
+        "creator-07-strings-rising",
+        "creator-12-piano-elegant",
+        "06-ambient"
+      ],
+      "llm_prompt_additions": "语气自信不张扬。可以中英混合。聚焦 '一次 pitch 的起承转合'。",
+      "example_plans": []
+    },
+    {
+      "id": "customer-facing",
+      "name": "客户现场 · 交流瞬间",
+      "emoji": "🤝",
+      "description": "与客户/用户/同行的互动,温暖有人味",
+      "target_platforms": ["视频号", "朋友圈"],
+      "material_preference": {
+        "prefer_scenes": ["对话", "握手", "咖啡厅", "会议室", "笑脸"],
+        "avoid_scenes": ["空镜", "风景"]
+      },
+      "subtitle_style": {
+        "template": "与 X 聊了 Y",
+        "tone": "对话感 · 人物刻画",
+        "example": ["和一位做 AI 教育的朋友聊了 30 分钟", "这位用户跟我说了一件事...", "真实的反馈比数据更有用"],
+        "length_hint": "中长 · 有故事感"
+      },
+      "pacing": {
+        "seg_duration": [4, 6],
+        "total_duration": [45, 75],
+        "transition": "自然切"
+      },
+      "bgm_preference": [
+        "creator-05-acoustic-warm",
+        "04-strings-mellow",
+        "creator-09-handpan-joy"
+      ],
+      "llm_prompt_additions": "用'他/她/这位'等第三人称,描写人物细节。不要过度煽情。",
+      "example_plans": []
+    },
+    {
+      "id": "travel-notes",
+      "name": "旅行游寄 · 正能量版",
+      "emoji": "🌏",
+      "description": "出差或休假的城市/自然/人文,但底色积极,不感伤",
+      "target_platforms": ["小红书", "视频号", "朋友圈"],
+      "material_preference": {
+        "prefer_scenes": ["风景", "城市", "海", "天空", "街头"],
+        "avoid_scenes": []
+      },
+      "subtitle_style": {
+        "template": "{place} · {feeling}",
+        "tone": "日记 · 温柔但有方向",
+        "example": ["香港的海 · 开阔", "中环下午 · 走慢一点也到", "今天很好"],
+        "length_hint": "中 · 有画面的文字"
+      },
+      "pacing": {
+        "seg_duration": [4, 6],
+        "total_duration": [35, 60],
+        "transition": "自然切"
+      },
+      "bgm_preference": [
+        "solo-11-guzheng-flowing",
+        "solo-03-ocarina-zen",
+        "creator-06-acoustic-bright",
+        "creator-10-whistle-adventure"
+      ],
+      "llm_prompt_additions": "避免'孤独/虚无'。多用'开阔/自在/值得'等正向词。",
+      "example_plans": ["09-午后海港笔记"]
+    },
+    {
+      "id": "daily-grounding",
+      "name": "日常沉淀 · 慢笔记",
+      "emoji": "☕",
+      "description": "清晨/桌面/书本/咖啡,创作者的日常仪式感",
+      "target_platforms": ["小红书", "朋友圈"],
+      "material_preference": {
+        "prefer_scenes": ["桌面", "书", "咖啡", "晨光", "夜晚", "窗外"],
+        "avoid_scenes": ["人群", "热闹"]
+      },
+      "subtitle_style": {
+        "template": "{ritual} / {thought}",
+        "tone": "散文 · 慢",
+        "example": ["6:30 醒 · 先写下今天想做的 3 件", "读一页《纳瓦尔宝典》 · 记一句", "晚安 · 想清楚了就好"],
+        "length_hint": "中 · 允许慢节奏长句"
+      },
+      "pacing": {
+        "seg_duration": [5, 8],
+        "total_duration": [40, 70],
+        "transition": "慢切 · 允许黑场"
+      },
+      "bgm_preference": [
+        "01-piano-calm",
+        "solo-16-piano-einaudi",
+        "solo-18-handpan-healing"
+      ],
+      "llm_prompt_additions": "仪式感字词:'早起/一杯/一本/一行'。时间感要慢但不拖沓。",
+      "example_plans": []
+    }
+  ]
+}

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Intelligence - 内容引擎</title>
+    <style>
+        :root {
+            --bg-body: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-blue: #0071e3;
+            --accent-blue-hover: #0077ed;
+            --section-bg: #f5f5f7;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            width: 100%;
+            max-width: 980px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 22px;
+            font-size: 12px;
+        }
+
+        .nav-content a {
+            color: var(--text-primary);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            font-weight: 400;
+        }
+
+        .nav-content a:hover {
+            opacity: 1;
+        }
+        
+        .nav-brand {
+            font-weight: 600 !important;
+            letter-spacing: -0.01em;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: #fff;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 64px;
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            margin: 0 0 16px 0;
+            color: #1d1d1f;
+            background: linear-gradient(135deg, #000 30%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @media only screen and (min-width: 1068px) {
+            h1 { font-size: 80px; }
+        }
+
+        h2 {
+            font-size: 28px;
+            line-height: 1.2;
+            font-weight: 500;
+            letter-spacing: 0.005em;
+            margin: 0 0 48px 0;
+            color: #1d1d1f;
+            max-width: 700px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 980px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-blue-hover);
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 113, 227, 0.4);
+        }
+
+        /* Philosophy Section */
+        .section-philosophy {
+            padding: 150px 0;
+            background-color: #fff;
+        }
+
+        .text-block {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 22px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            color: var(--accent-blue);
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-headline {
+            font-size: 48px;
+            line-height: 1.08349;
+            font-weight: 600;
+            letter-spacing: -0.003em;
+            margin-bottom: 24px;
+        }
+
+        .section-desc {
+            font-size: 21px;
+            line-height: 1.381;
+            font-weight: 400;
+            letter-spacing: 0.011em;
+            color: var(--text-secondary);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: var(--section-bg);
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            line-height: 1.16667;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            font-size: 17px;
+            line-height: 1.47059;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: #f5f5f7;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 40px; }
+            .section-headline { font-size: 32px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        /* Animations */
+        .anim-fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .anim-fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="nav-brand">Echo Intelligence</a>
+            <div style="display: flex; gap: 24px;">
+                <a href="#philosophy">设计理念</a>
+                <a href="#features">核心能力</a>
+                <a href="/admin">进入控制台</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="anim-fade-up">化繁为简，智见未来。</h1>
+        <h2 class="anim-fade-up" style="transition-delay: 0.1s;">重新定义内容生产的智能边界。</h2>
+        <div class="anim-fade-up" style="transition-delay: 0.2s;">
+            <a href="/admin" class="cta-button">立即体验</a>
+        </div>
+    </section>
+
+    <section id="philosophy" class="section-philosophy">
+        <div class="text-block anim-fade-up">
+            <span class="eyebrow">设计理念</span>
+            <div class="section-headline">不仅是工具，<br>更是思维的延伸。</div>
+            <div class="section-desc">
+                <p>我们相信，最好的技术应当是无感的。Echo Intelligence 摒弃了繁杂的参数设置，将复杂的 AI 推理隐藏在极简的界面之下。</p>
+                <p>每一次点击，都是算法与直觉的完美共鸣。让创作回归本质，让灵感自由流动。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="grid">
+                <div class="feature-card anim-fade-up" style="transition-delay: 0s;">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-title">智能涌现</div>
+                    <div class="feature-desc">基于深度学习模型，自动提取核心价值，让内容创作回归本质。</div>
+                </div>
+                <div class="feature-card anim-fade-up" style="transition-delay: 0.1s;">
+                    <div class="feature-icon">⚡️</div>
+                    <div class="feature-title">极速交付</div>
+                    <div class="feature-desc">从音频输入到多平台文案生成，全流程自动化，效率提升百倍。</div>
+                </div>
+                <div class="feature-card anim-fade-up" style="transition-delay: 0.2s;">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">原生美学</div>
+                    <div class="feature-desc">不仅仅是工具，更是艺术品。每一次交互都经过精心打磨。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Copyright © 2026 Echo Intelligence. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.anim-fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
