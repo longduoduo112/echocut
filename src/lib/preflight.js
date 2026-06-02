@@ -64,7 +64,7 @@ function preflightCheck(videoPath, opts = {}) {
     if (freeDiskGB > 0 && freeDiskGB < estimatedNeed) {
         errors.push(
             `磁盘不足:视频 ${videoSizeGB.toFixed(1)}GB,预估需要 ${estimatedNeed.toFixed(1)}GB,`
-            + `当前空闲 ${freeDiskGB.toFixed(1)}GB。参考 docs/OPERATIONS.md 清理命令。`
+            + `当前空闲 ${freeDiskGB.toFixed(1)}GB。参考 docs/TROUBLESHOOTING.md 清理命令。`
         );
     } else if (freeDiskGB > 0 && freeDiskGB < estimatedNeed + 10) {
         warnings.push(

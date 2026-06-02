@@ -89,8 +89,8 @@ async function transcribeByEngine(audioFile, engine = 'auto') {
         throw new Error(
             `引擎 "${normalizedEngine}" 不能用于视频字幕:MiMo 无词级时间戳,字幕会与声音对不上。\n`
             + `  · 视频字幕(burn/highlights):用 --engine qwen3(默认,中文最准 + 词级时间戳)\n`
-            + `  · 纯文本转写(录音/文章):用 node scripts/batch-transcribe-records.js --engine mimo-4bit\n`
-            + `  详见 docs/ASR-FINAL-REPORT.md 选型结论`
+            + `  · 纯文本转写(录音/文章):用 --engine funasr(无需词级时间戳的场景)\n`
+            + `  详见 docs/ASR-ENGINES.md 选型结论`
         );
     }
     const profileMap = {
@@ -119,7 +119,7 @@ async function transcribeByEngine(audioFile, engine = 'auto') {
         },
         // qwen3: Qwen3-ASR(原生 MLX)。2026-05 基准实测中文 CER 远低于 whisper-large-v3
         // (场景A 1.2% vs 6.5% / 场景B 2.6% vs 10.2%),原生带词级时间戳(字幕烧录必需)。
-        // 详见 docs/ASR-FINAL-REPORT.md。严格不降级(理由同 mlx_hq:时间戳精度一致性)。
+        // 详见 docs/ASR-ENGINES.md。严格不降级(理由同 mlx_hq:时间戳精度一致性)。
         qwen3: {
             transcribeEngine: 'qwen3',
             env: {

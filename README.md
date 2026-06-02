@@ -172,6 +172,8 @@ for `--engine`, `--ratio`, `--cut-fillers`, `--golden-hook`, `--reuse-captions`,
 ## 📚 More
 
 - **CLI reference (agent-friendly):** [docs/CLI.md](docs/CLI.md)
+- **Troubleshooting / FAQ:** [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+- **ASR engine selection:** [docs/ASR-ENGINES.md](docs/ASR-ENGINES.md)
 - **Contributing & dev setup:** [CONTRIBUTING.md](CONTRIBUTING.md)
 - **AI coding tools (Claude Code / Cursor):** [CLAUDE.md](CLAUDE.md) · [AGENTS.md](AGENTS.md)
 - **Changelog:** [CHANGELOG.md](CHANGELOG.md) — **Security:** [SECURITY.md](SECURITY.md)
