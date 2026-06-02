@@ -2,6 +2,11 @@
 
 # echocut
 
+[![CI](https://github.com/BillLucky/echocut/actions/workflows/ci.yml/badge.svg)](https://github.com/BillLucky/echocut/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
+[![欢迎 PR](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
 > **一条命令,把原始素材变成带品牌、适配各平台的成片。**
 
 `echocut` 是一个**本地优先**的视频 CLI。给它一个视频,它就自动转写语音、烧录大字幕、
