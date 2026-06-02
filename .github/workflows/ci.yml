@@ -35,5 +35,10 @@ jobs:
       - name: Syntax check
         run: npm run check
 
+      # A few tests (e.g. identity-card overlay) need a real font file on disk.
+      # This also validates the documented `fetch-fonts` setup path on Linux.
+      - name: Fetch default font
+        run: npm run fetch-fonts
+
       - name: Unit tests
         run: npm run test:unit
