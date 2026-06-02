@@ -357,21 +357,6 @@ program
     .action((file, opts) => require('../src/cli/commands/publish')(file, opts));
 
 program
-    .command('tasks')
-    .description('查看服务器任务队列(不拉取,只看状态)')
-    .option('--all', '显示所有任务(默认只显示 pending + processing)')
-    .option('--user <name>', '按用户名筛选')
-    .action((opts) => require('../src/cli/commands/tasks')(opts));
-
-program
-    .command('sync')
-    .description('从服务器拉取任务到本地处理(排队模式)')
-    .option('--task-id <id>', '指定处理某一条任务(跳过队列)')
-    .option('--loop [seconds]', '持续轮询(默认 120 秒)')
-    .option('--dashboard', '显示实时监控面板')
-    .action((opts) => require('../src/cli/commands/sync')(opts));
-
-program
     .command('doctor')
     .description('环境自检: Node / FFmpeg / Python / Ollama / MiniMax / 内存')
     .option('--minimax', '探活 MiniMax API key 是否可用')

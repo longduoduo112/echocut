@@ -281,34 +281,6 @@ const EXAMPLES = {
   # 清理 7 天前的旧文件
   echocut publish --purge 7`,
 
-    tasks: `
-示例:
-  # 活跃任务(pending + processing + 最近完成)
-  echocut tasks
-
-  # 全部任务
-  echocut tasks --all
-
-  # 按用户筛
-  echocut tasks --user xiaomei`,
-
-    sync: `
-示例:
-  # 按时间顺序处理所有 pending
-  echocut sync
-
-  # 只处理 #5 这一条
-  echocut sync --task-id 5
-
-  # 持续轮询(每 2 分钟检查)
-  echocut sync --loop
-
-  # 每 5 分钟检查(低频省电)
-  echocut sync --loop 300
-
-  # 加可视化监控面板
-  echocut sync --loop --dashboard`,
-
     doctor: `
 示例:
   # 环境自检(Node / FFmpeg / Python / Ollama / 内存)
