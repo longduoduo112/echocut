@@ -52,7 +52,24 @@ configs/brands/
 | `llm.xiaohongshuPrompt` | 小红书图文笔记 prompt | LLM |
 | `llm.douyinPrompt` | 抖音/视频号描述 prompt | LLM |
 | `asrDomainKeywords` | ASR 专词表(数组),帮转写识别你常用的术语 | ASR |
-| `typoFixes` | 错别字矫正(如"大标"→"Example") | ASR |
+| `typoFixes` | 错别字矫正(简单字符串替换,如"大标"→"Example") | ASR |
+| `asrNameCorrections` | 人名/公司名同音字校正(数组),多人对谈/直播录屏专用 | ASR |
+
+### `asrNameCorrections`——同音字人名校正
+
+多人 panel、圆桌、直播录屏里,ASR 常把人名/公司名听成同音字(LLM 校正也不知道真名,救不回来)。
+配上这个字段,`burn` 流水线会在字幕生成后做精确替换。每条 `wrong` 可以是单个字符串或字符串数组
+(覆盖多种听错写法),`right` 是正确写法:
+
+```json
+"asrNameCorrections": [
+  { "wrong": ["李彪", "Pan Hunt"], "right": "李标 Bill" },
+  { "wrong": ["We点AI", "微点AI", "位点AI"], "right": "WUI.AI" }
+]
+```
+
+失败不阻塞主流程。技术名词(Claude Code 被听成 Cloud Code 等)有全局词库自动处理,
+这里只需配你自己的人名/品牌名。
 
 ## 占位符自动插值
 

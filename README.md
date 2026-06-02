@@ -45,6 +45,8 @@ echocut burn talk.mp4 --cut-fillers
 
 > **Platform:** works cross-platform via **WhisperX** (CPU or CUDA). The fastest ASR
 > (`qwen3`, `mlx`) is **Apple Silicon only** and falls back to WhisperX elsewhere.
+> Video encoding uses hardware acceleration on Mac and software `libx264` elsewhere
+> (correct, just slower) — see [Troubleshooting](docs/TROUBLESHOOTING.md#cross-platform-expectations--跨平台说明).
 
 ### 2. Install
 
@@ -174,7 +176,7 @@ for `--engine`, `--ratio`, `--cut-fillers`, `--golden-hook`, `--reuse-captions`,
 - **CLI reference (agent-friendly):** [docs/CLI.md](docs/CLI.md)
 - **Troubleshooting / FAQ:** [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 - **ASR engine selection:** [docs/ASR-ENGINES.md](docs/ASR-ENGINES.md)
-- **Contributing & dev setup:** [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Contributing & dev setup:** [CONTRIBUTING.md](CONTRIBUTING.md) · **Roadmap:** [ROADMAP.md](ROADMAP.md)
 - **AI coding tools (Claude Code / Cursor):** [CLAUDE.md](CLAUDE.md) · [AGENTS.md](AGENTS.md)
 - **Changelog:** [CHANGELOG.md](CHANGELOG.md) — **Security:** [SECURITY.md](SECURITY.md)
 - **All commands:** `echocut --help` (every subcommand has `--help` with examples)

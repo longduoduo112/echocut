@@ -67,5 +67,10 @@
 
   "typoFixes": {
     "错别字": "正确字"
-  }
+  },
+
+  "asrNameCorrections": [
+    { "wrong": ["听错的人名A", "另一种听错写法"], "right": "正确人名" },
+    { "wrong": "听错的公司名", "right": "正确公司名" }
+  ]
 }

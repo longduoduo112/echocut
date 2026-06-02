@@ -135,11 +135,11 @@ Run `echocut <command> --help` for the full, authoritative flag list of any comm
 | **Long video** | `highlights <file>` | LLM picks N highlight segments, each fully rendered |
 | | `highlights-ls` / `hls <file>` | analyze a long video, list candidate segments (cached) |
 | | `highlights-make` / `hmk <file>` | render specific/filtered segments from the `hls` cache |
-| | `article-from-clip` / `afc <file>` | long-form article from a highlight segment |
+| | `article-from-clip` / `afc <file>` | long-form article from a highlight segment (`--deep-review` re-writes any "AI-ese" the quality scan flags) |
 | **Multi-person** | `panel-clip <file>` | panel/round-table → per-speaker clips (transcribe → segment → reframe → burn) |
 | | `identity-card <file>` | persistent name + title overlay (for panel/speaker videos) |
 | **Marketing** | `distribute [file]` | one cut → per-platform publish packages (6 platforms) |
-| | `hook-gen [file]` | 5 opening-hook candidates (counter-intuitive / provocative / numeric / story / identity) |
+| | `hook-gen [file]` | 5 opening-hook candidates (counter-intuitive / provocative / numeric / story / identity); `--rounds N` runs N rounds and keeps the strongest deduped Top 5 |
 | | `cover` | standalone branded cover `.jpg` (no video processing) |
 | | `publish [file]` | upload the result to S3/MinIO, return a signed URL |
 | **Content (text)** | `article` | article + social copy from video/audio/text |
