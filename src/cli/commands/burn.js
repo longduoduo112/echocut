@@ -27,6 +27,71 @@ function probeRotation(filePath) {
     return 0;
 }
 
+// 旋转归一化:手机(尤其小米/新安卓)只在 Display Matrix side_data 里写旋转角(无老式 rotate tag)。
+// 下游 cut-fillers 的 filter_complex 会把像素转正(720×1280)却保留 rotation=90 元数据,burn 再
+// autorotate 一次 → 画面歪斜(人横躺、字幕正)。修法:开跑前把方向烧进像素 + 清掉所有旋转元数据,
+// 让 transcribe/cut/burn 全程看到真正转正、无旋转标签的视频。一次性消灭这一类双重旋转 bug。
+async function normalizeRotation(srcPath, root) {
+    const rotation = probeRotation(srcPath);
+    if (!rotation) return srcPath; // 无旋转元数据(已正视频):零开销原样使用
+    const C = { gray: '\x1b[90m', reset: '\x1b[0m', cyan: '\x1b[36m', green: '\x1b[32m', yellow: '\x1b[33m' };
+    let size = 0; let mtime = 0;
+    try { const st = fs.statSync(srcPath); size = st.size; mtime = Math.floor(st.mtimeMs); } catch { /* ignore */ }
+    const base = path.basename(srcPath, path.extname(srcPath));
+    const cacheDir = path.join(root, '.echo-cache', 'rotate');
+    fs.mkdirSync(cacheDir, { recursive: true });
+    const outPath = path.join(cacheDir, `${base}_${size}_${mtime}_norm.mp4`);
+    if (fs.existsSync(outPath) && fs.statSync(outPath).size > 1024) {
+        console.log(`${C.gray}[rotate]${C.reset} 复用旋转归一化缓存 ${C.green}✓${C.reset}`);
+        return outPath;
+    }
+    console.log(`${C.cyan}[rotate]${C.reset} 检测到旋转元数据 ${rotation}°,先把方向烧进像素并清除旋转标签(防下游双重旋转导致画面歪斜)`);
+    // -vf 触发 ffmpeg autorotate:按 displaymatrix 的正确方向把像素转正,并消除旋转 side_data;
+    // -metadata:s:v:0 rotate=0 再清老式 rotate tag(双保险)。方向由 ffmpeg 依矩阵判定,比手写
+    // transpose 猜方向稳(本类 bug 的根因就是方向/标签不一致)。
+    const { runFfmpegWithProgress } = require('../../lib/ffmpegProgress');
+    let durationSec = 0;
+    try {
+        const { execSync } = require('child_process');
+        durationSec = parseFloat(execSync(
+            `ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "${srcPath}"`,
+            { encoding: 'utf8' }
+        ).trim()) || 0;
+    } catch { /* ignore */ }
+    const tmpOut = `${outPath}.tmp.mp4`;
+    const mkArgs = (vcodec) => ([
+        '-y', '-i', srcPath,
+        '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
+        '-c:v', vcodec,
+        '-pix_fmt', 'yuv420p',
+        '-metadata:s:v:0', 'rotate=0',
+        '-c:a', 'copy',
+        '-movflags', '+faststart',
+        tmpOut
+    ]);
+    const t0 = Date.now();
+    const codecs = process.platform === 'darwin' ? ['h264_videotoolbox', 'libx264'] : ['libx264'];
+    let ok = false;
+    for (const vcodec of codecs) {
+        try {
+            await runFfmpegWithProgress(mkArgs(vcodec), { durationSec });
+            ok = true;
+            break;
+        } catch (err) {
+            console.log(`${C.yellow}![rotate]${C.reset} ${vcodec} 编码失败,尝试下一个: ${err.message}`);
+        }
+    }
+    if (!ok) {
+        try { if (fs.existsSync(tmpOut)) fs.unlinkSync(tmpOut); } catch { /* ignore */ }
+        console.error(`${C.yellow}![rotate]${C.reset} 旋转归一化失败,改用原视频(画面可能仍歪)`);
+        return srcPath;
+    }
+    try { fs.renameSync(tmpOut, outPath); } catch { return srcPath; }
+    const dt = ((Date.now() - t0) / 1000).toFixed(1);
+    console.log(`${C.gray}[rotate]${C.reset} 已转正并清除旋转元数据 ${C.green}(${dt}s)${C.reset}`);
+    return outPath;
+}
+
 function detectRatioByProbe(filePath) {
     try {
         const { execSync } = require('child_process');
@@ -68,7 +133,7 @@ function loadVisualPreset(root, name) {
 
 module.exports = async function burn(file, opts) {
     const root = process.env.ZDE_PROJECT_ROOT || process.cwd();
-    const abs = path.isAbsolute(file) ? file : path.resolve(process.cwd(), file);
+    let abs = path.isAbsolute(file) ? file : path.resolve(process.cwd(), file);
 
     if (!fs.existsSync(abs)) {
         console.error(`\x1b[31m✗\x1b[0m 找不到文件: ${abs}`);
@@ -85,6 +150,10 @@ module.exports = async function burn(file, opts) {
         console.error(`\x1b[31m✗\x1b[0m ${err.message}`);
         process.exit(1);
     }
+
+    // 旋转归一化(手机竖拍尤其小米/新安卓):开跑前把方向烧进像素 + 清旋转元数据,
+    // 否则 cut-fillers 与 burn 会双重旋转导致画面歪斜。无旋转的源零开销原样通过。
+    abs = await normalizeRotation(abs, root);
 
     let preset;
     if (!opts.ratio || opts.ratio === 'auto') {

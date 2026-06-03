@@ -16,6 +16,7 @@ All notable changes to this project are documented here. The format is based on
 - README now notes the cross-platform video-encoder trade-off (hardware on Mac, `libx264` elsewhere).
 
 ### Fixed
+- **Rotation** — phone footage that stores orientation only in the Display Matrix (Xiaomi / many Android) no longer comes out sideways. `burn` now normalizes rotation up front (bakes the display orientation into the pixels and strips all rotation metadata) before transcribe/cut/burn, preventing a double-rotation between `cut-fillers` and the burn step. Non-rotated sources pass through with zero overhead.
 - **Security** — removed SaaS-only `sync` / `tasks` commands that still carried hardcoded server/admin defaults; they were never useful to the local-first CLI.
 - Fixed dangling in-code doc references (`ASR-FINAL-REPORT.md`, `OPERATIONS.md`) to point at real docs.
 
