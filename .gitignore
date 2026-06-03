@@ -94,5 +94,7 @@ src/resources/fonts/**/*.woff2
 assets/fonts/*.otf
 assets/fonts/*.ttf
 assets/fonts/OFL.txt
-# BGM 用户自备/生成
+# BGM: a curated starter set (01–08) ships in-repo; the full 74-track pack is
+# fetched on demand via `npm run fetch-bgm`. Ignore everything except the starter set.
 assets/bgm/*.mp3
+!assets/bgm/0[1-8]-*.mp3

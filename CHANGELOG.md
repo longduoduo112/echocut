@@ -8,6 +8,7 @@ All notable changes to this project are documented here. The format is based on
 
 ### Added
 - **CI** — GitHub Actions runs `check` + unit tests on Node 18/20 for every push/PR; README badges.
+- **BGM pack** — a curated starter set of 8 tracks now ships in `assets/bgm/`, so the default pipeline mixes music out of the box. `npm run fetch-bgm` (`scripts/fetch-bgm.sh`) pulls the full 74-track royalty-free pack from a GitHub Release. See `assets/bgm/README.md`.
 - **macOS setup** — `scripts/setup-macos.sh` (idempotent one-command install) and `docs/INSTALL-MACOS.md` (bilingual from-scratch guide), validated end-to-end on a fresh Apple Silicon Mac mini. Calls out the two install gotchas explicitly: use `ffmpeg-full` (the slim `ffmpeg` formula has no libass → subtitle burn fails) and `node@22` LTS (latest Node breaks the `better-sqlite3` native build), plus a mainland-China mirror / proxy-OFF section.
 - **Docs** — `docs/TROUBLESHOOTING.md` (FAQ), `docs/ASR-ENGINES.md` (engine selection), `ROADMAP.md`.
 - **Brand config** — documented `asrNameCorrections` (homophone name correction for panel/multi-speaker) in the brand template and field reference.

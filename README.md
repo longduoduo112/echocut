@@ -50,6 +50,25 @@ echocut burn talk.mp4 --cut-fillers
 
 ### 2. Install
 
+#### Quickstart — macOS (Apple Silicon)
+
+On a Mac (M1/M2/M3/M4), one idempotent script installs everything — Homebrew, FFmpeg,
+Node, the Python ASR stack, fonts and the CLI:
+
+```bash
+git clone https://github.com/<you>/echocut.git && cd echocut
+bash scripts/setup-macos.sh                  # idempotent — safe to re-run
+USE_CN_MIRROR=1 bash scripts/setup-macos.sh  # mainland China — use domestic mirrors
+```
+
+Two gotchas the script handles for you (mind them if you install by hand): FFmpeg must be
+**`ffmpeg-full`**, not the slim `ffmpeg` (the slim build has no libass → subtitle burn-in
+fails), and Node must be the LTS **`node@22`**, not the latest (better-sqlite3 has no
+prebuilt binary for bleeding-edge Node). Full details, mirrors and troubleshooting:
+**[docs/INSTALL-MACOS.md](docs/INSTALL-MACOS.md)**.
+
+#### Manual install (any platform)
+
 ```bash
 git clone https://github.com/<you>/echocut.git && cd echocut
 npm install                                                  # Node deps + CLI

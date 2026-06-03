@@ -46,6 +46,24 @@ echocut burn talk.mp4 --cut-fillers
 
 ### 2. 安装
 
+#### 快速上手 —— macOS(Apple Silicon)
+
+在 Mac(M1/M2/M3/M4)上,一条幂等脚本装好一切 —— Homebrew、FFmpeg、Node、Python ASR
+套件、字体和 CLI:
+
+```bash
+git clone https://github.com/<you>/echocut.git && cd echocut
+bash scripts/setup-macos.sh                  # 幂等,可重复跑
+USE_CN_MIRROR=1 bash scripts/setup-macos.sh  # 国内网络,走国内镜像
+```
+
+脚本帮你绕开的两个坑(手动安装务必照做):FFmpeg 必须装 **`ffmpeg-full`**,不是精简版
+`ffmpeg`(精简版没 libass,烧字幕会挂);Node 必须用 LTS **`node@22`**,不是最新版
+(最新 Node 让 better-sqlite3 没有预编译二进制、源码编译失败)。完整细节、镜像与排错见
+**[docs/INSTALL-MACOS.md](docs/INSTALL-MACOS.md)**。
+
+#### 手动安装(任意平台)
+
 ```bash
 git clone https://github.com/<you>/echocut.git && cd echocut
 npm install                                                  # Node 依赖 + CLI
