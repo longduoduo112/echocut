@@ -1043,7 +1043,9 @@ async function main() {
         printHelp();
         return;
     }
-    const config = getConfig();
+    // CLI video path (burn/highlights) never touches the Telegram bot, so don't
+    // require TELEGRAM_BOT_TOKEN — a fresh local user shouldn't need a bot to burn.
+    const config = getConfig({ requireTelegramToken: false });
     initDb(config.contentDbPath);
     ensureDefaultConfigs();
     const videoCaptionOptionsRaw = getVideoCaptionOptions(getConfigValue);

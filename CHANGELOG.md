@@ -8,6 +8,7 @@ All notable changes to this project are documented here. The format is based on
 
 ### Added
 - **CI** — GitHub Actions runs `check` + unit tests on Node 18/20 for every push/PR; README badges.
+- **macOS setup** — `scripts/setup-macos.sh` (idempotent one-command install) and `docs/INSTALL-MACOS.md` (bilingual from-scratch guide), validated end-to-end on a fresh Apple Silicon Mac mini. Calls out the two install gotchas explicitly: use `ffmpeg-full` (the slim `ffmpeg` formula has no libass → subtitle burn fails) and `node@22` LTS (latest Node breaks the `better-sqlite3` native build), plus a mainland-China mirror / proxy-OFF section.
 - **Docs** — `docs/TROUBLESHOOTING.md` (FAQ), `docs/ASR-ENGINES.md` (engine selection), `ROADMAP.md`.
 - **Brand config** — documented `asrNameCorrections` (homophone name correction for panel/multi-speaker) in the brand template and field reference.
 
@@ -17,6 +18,9 @@ All notable changes to this project are documented here. The format is based on
 
 ### Fixed
 - **Rotation** — phone footage that stores orientation only in the Display Matrix (Xiaomi / many Android) no longer comes out sideways. `burn` now normalizes rotation up front (bakes the display orientation into the pixels and strips all rotation metadata) before transcribe/cut/burn, preventing a double-rotation between `cut-fillers` and the burn step. Non-rotated sources pass through with zero overhead.
+- **`burn` without Remotion** — `@remotion/*` are now lazy-`require`d inside the render path instead of at module load, so the default FFmpeg-only pipeline (and `npm install --omit=optional`) no longer crashes with `Cannot find module '@remotion/bundler'`.
+- **CLI needs no Telegram token** — the `burn` / `highlights` path no longer throws `缺少 TELEGRAM_BOT_TOKEN`; the bot token is only required by the optional Telegram front-end.
+- **`.env.example` proxy** — the `HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY` lines are commented out by default. A stale/unused proxy here used to hijack local ASR model downloads (funasr/ModelScope) and break transcription with a `socksio` error.
 - **Security** — removed SaaS-only `sync` / `tasks` commands that still carried hardcoded server/admin defaults; they were never useful to the local-first CLI.
 - Fixed dangling in-code doc references (`ASR-FINAL-REPORT.md`, `OPERATIONS.md`) to point at real docs.
 

@@ -3,8 +3,10 @@ const os = require('os');
 const path = require('path');
 const { spawn, spawnSync, execFile } = require('child_process');
 const { promisify } = require('util');
-const { bundle } = require('@remotion/bundler');
-const { renderMedia, selectComposition } = require('@remotion/renderer');
+// @remotion/* are optionalDependencies (used only by the Remotion render path).
+// They are lazy-required inside prepareBundle()/renderCaptionVideo() so the
+// default, FFmpeg-only burn pipeline keeps working when Remotion is not installed
+// (e.g. `npm install --omit=optional`, which the CI and the docs advertise).
 const { getConfigValue, DEFAULT_CONFIGS } = require('../db/configRepo');
 const { stripEmoji } = require('../lib/stripEmoji');
 
@@ -37,6 +39,7 @@ function getExecFileOptions(timeoutMs) {
 }
 
 async function prepareBundle() {
+    const { bundle } = require('@remotion/bundler');
     const entryPoint = path.join(process.cwd(), 'video_lab', 'remotion', 'index.jsx');
     const serveUrl = await bundle({ entryPoint, webpackOverride: (config) => config });
     return { serveUrl };
@@ -860,6 +863,7 @@ async function extractAudioFromVideo(videoPath, stem = 'video_audio', clipSecond
 }
 
 async function renderCaptionVideo({ serveUrl, outputLocation, inputProps }) {
+    const { renderMedia, selectComposition } = require('@remotion/renderer');
     const totalMemGb = Number((os.totalmem() / 1024 / 1024 / 1024).toFixed(2));
     // lowMemoryNode 同 transcriber.js,看可用内存才能识别"48GB 临时紧张"
     let availMemGb = Infinity;
